@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log('uptime:', req);
+  console.log('body:', req.body);
   //res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
@@ -29,7 +29,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({});
   }
 
-  if (req.body.msg.length > 0) {
+  if (req.body.msg && req.body.msg.length > 0) {
     sendLineNotify(`
 ${req.body.msg}`);
     Logging.log(req.body.msg);
