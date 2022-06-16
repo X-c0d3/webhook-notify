@@ -28,8 +28,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
     return res.status(200).json({});
   }
-  sendLineNotify(JSON.stringify(req.body));
-  Logging.log(req.body);
+
+  if (req.body.msg.length > 0) {
+    sendLineNotify(`
+${req.body.msg}`);
+    Logging.log(req.body.msg);
+  }
 
   next();
 });
